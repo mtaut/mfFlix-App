@@ -37,7 +37,7 @@ http
     );
   })
   .listen(5500);
-console.log("Server is running on Port 8080.");
+console.log("Server is running on Port 5500.");
 
 console.log(q.host);
 console.log(q.pathname);
