@@ -1,34 +1,11 @@
 const http = require("http");
-const fs = require("fs");
 const url = require("url");
-let addr = request.url;
-let q = new URL(addr, "http://localhost:8080");
+const fs = require("fs");
 
 http
   .createServer((request, response) => {
-    let addr = request.url,
-      q = new URL(addr, "http://localhost:8080");
-
-    console.log(q.host);
-    console.log(q.pathname);
-    console.log(q.search);
-
-    let qdata = q.query;
-    console.log(qdata.month);
-
-    filePath = "documentation";
-
-    fs.appendFile(
-      "log.txt",
-      "URL: " + addr + "\nTimestamp: " + new Date() + "\n\n",
-      (err) => {
-        if (err) {
-          console.log(err);
-        } else {
-          console.log("Added to log.");
-        }
-      }
-    );
+    const q = url.parse(request.url, true);
+    let filePath;
 
     if (q.pathname.includes("documentation")) {
       filePath = __dirname + "/documentation.html";
@@ -38,13 +15,30 @@ http
 
     fs.readFile(filePath, (err, data) => {
       if (err) {
-        throw err;
+        response.writeHead(404, { "Content-Type": "text/html" });
+        response.write("404 Not Found!");
+      } else {
+        response.writeHead(200, { "Content-Type": "text/html" });
+        response.write(data);
       }
-
-      response.writeHead(200, { "Content-Type": "text/html" });
-      response.write(data);
       response.end();
     });
+
+    fs.appendFile(
+      "log.txt",
+      "URL: " + request.url + " - Timestamp: " + new Date() + "\n\n",
+      (err) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log("Added to log.");
+        }
+      }
+    );
   })
-  .listen(8080);
-console.log("My first Node test server is running on Port 8080.");
+  .listen(5500);
+console.log("Server is running on Port 8080.");
+
+console.log(q.host);
+console.log(q.pathname);
+console.log(q.search);
