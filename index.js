@@ -1,4 +1,6 @@
 const express = require("express");
+morgan = require("morgan");
+
 const app = express();
 
 let topMovies = [
@@ -45,6 +47,8 @@ let topMovies = [
 ];
 
 // GET requests
+app.use(morgan("common"));
+
 app.get("/", (req, res) => {
   res.send("Welcome to myFlix movie app!");
 });
