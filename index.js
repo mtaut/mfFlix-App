@@ -58,7 +58,7 @@ let topMovies = [
     genre: "Comedy",
     yearReleased: "1993",
     description:
-      "Four Jamaican bobsleighers recieve the help of a discraced former chamption to compete in the 1988 Calgary Winter Olympics.",
+      "Four Jamaican bobsleighers recieve the help of a disgraced former chamption to compete in the 1988 Calgary Winter Olympics.",
   },
   {
     title: "Good Will Hunting",
