@@ -11,6 +11,87 @@
       genres, and directors. Users can sign up, update their personal info, and
       create a list of their favorite movies.
     </p>
+    <h3>
+      Below are the operations of the myFlix app, the URL endpoints for the API,
+      and correlating response methods.
+    </h3>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Request</th>
+          <th>URL</th>
+          <th>HTTP Method</th>
+          <th>Response</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Return list of all movies to the user.</td>
+          <td>/movies</td>
+          <td>GET</td>
+          <td>A JSON object holding data about all the movies.</td>
+        </tr>
+        <tr>
+          <td>Return data about a single movie by title to the user.</td>
+          <td>/movies/title</td>
+          <td>GET</td>
+          <td>
+            A JSON object holding data about the single movie containing a title
+            and movie data.
+          </td>
+        </tr>
+        <tr>
+          <td>Return data about a genre by title.</td>
+          <td>/movies/genre/title</td>
+          <td>GET</td>
+          <td>A JSON object holding data about the movie that was added.</td>
+        </tr>
+        <tr>
+          <td>Return data about a director by name.</td>
+          <td>/movies/director</td>
+          <td>GET</td>
+          <td>A JSON object holding data about a director.</td>
+        </tr>
+        <tr>
+          <td>Allow new users to register.</td>
+          <td>/users</td>
+          <td>POST</td>
+          <td>A JSON object about the new user registered.</td>
+        </tr>
+        <tr>
+          <td>Allow users to update their user info.</td>
+          <td>/users/info</td>
+          <td>PUT</td>
+          <td>A text message indicating user info was updated.</td>
+        </tr>
+        <tr>
+          <td>Allow users to add a movie to their list of favorites.</td>
+          <td>/movies/favorites</td>
+          <td>POST</td>
+          <td>
+            A text message indicating a movie was added to their list of
+            favorites.
+          </td>
+        </tr>
+        <tr>
+          <td>Allow users to remove a movie from their list of favorites.</td>
+          <td>/movies</td>
+          <td>DELETE</td>
+          <td>
+            A text message indicating a movie was removed from their list of
+            favorites.
+          </td>
+        </tr>
+        <tr>
+          <td>Allow existing users to deregister.</td>
+          <td>/users</td>
+          <td>DELETE</td>
+          <td>
+            A text message indicating to the user that they were deregistered.
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </head>
 
   <body></body>
