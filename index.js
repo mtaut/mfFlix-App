@@ -31,7 +31,7 @@ let topMovies = [
   {
     title: "Fight Club",
     director: "David Fincher",
-    genre: "Action/Thriller",
+    genre: "Action",
     yearReleased: "1999",
     description:
       "A commentary on consumerism, 'Fight Club', tells the story of how a man suffering from insomnia encounters a strange salesman and how the two form an underground fight club that changes their lives.",
@@ -39,7 +39,7 @@ let topMovies = [
   {
     title: "Hot Fuzz",
     director: "Edgar Wright",
-    genre: "Comedy/Action",
+    genre: "Comedy",
     yearReleased: "2007",
     description:
       "A cop transfers to a sleepy England village from London in what begins as a quiet new role suddenly turns into an investigation of mysterious deaths.",
@@ -71,7 +71,7 @@ let topMovies = [
   {
     title: "Black Panther",
     director: "Ryan Coogler",
-    genre: "Action/Sci-fi",
+    genre: "Action",
     yearReleased: "2018",
     description:
       "T'Challa is the son of a king of an advanced and hidden African nation, Wakanda. After dealing with the death of his father, T'Challa must take on challenges that threaten Wakanda.",
@@ -79,14 +79,14 @@ let topMovies = [
   {
     title: "Crouching Tiger, Hidden Dragon",
     direcor: "Ang Lee",
-    genre: "Action/Drama",
+    genre: "Drama",
     yearReleased: "2000",
     description:
       "Crouching Tiger, Hidden Dragon tells the story of a young Chinese warrior who steals a sword from a famed swordsman and the ensuing chase that follows taking her to a world of adventure and unexpected romance.",
   },
 ];
 
-// GET requests
+// GET requests from ex2.4
 app.use(morgan("common"));
 
 app.get("/", (req, res) => {

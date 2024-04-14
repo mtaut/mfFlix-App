@@ -41,14 +41,14 @@
           </td>
         </tr>
         <tr>
-          <td>Return data about a genre by title.</td>
-          <td>/movies/genre/title</td>
+          <td>Return data about a genre by name/title.</td>
+          <td>/movies/genre/genreName</td>
           <td>GET</td>
           <td>A JSON object holding data about the movie that was added.</td>
         </tr>
         <tr>
           <td>Return data about a director by name.</td>
-          <td>/movies/director</td>
+          <td>/movies/directors/directorName</td>
           <td>GET</td>
           <td>A JSON string holding data about a director.</td>
         </tr>
@@ -60,13 +60,13 @@
         </tr>
         <tr>
           <td>Allow users to update their user info.</td>
-          <td>/users/info</td>
+          <td>/users/id</td>
           <td>PUT</td>
           <td>A text message indicating user info was updated.</td>
         </tr>
         <tr>
           <td>Allow users to add a movie to their list of favorites.</td>
-          <td>/movies/favorites</td>
+          <td>/users/id/movieTitle</td>
           <td>POST</td>
           <td>
             A text message indicating a movie was added to their list of
@@ -75,7 +75,7 @@
         </tr>
         <tr>
           <td>Allow users to remove a movie from their list of favorites.</td>
-          <td>/movies</td>
+          <td>/users/id/movieTitle</td>
           <td>DELETE</td>
           <td>
             A text message indicating a movie was removed from their list of
@@ -84,7 +84,7 @@
         </tr>
         <tr>
           <td>Allow existing users to deregister.</td>
-          <td>/users</td>
+          <td>/users/id</td>
           <td>DELETE</td>
           <td>
             A text message indicating to the user that they were deregistered.
