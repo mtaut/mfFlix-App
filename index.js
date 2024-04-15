@@ -1,5 +1,6 @@
 const express = require("express");
 morgan = require("morgan");
+(bodyParser = require("body-parser")), (uuid = require("uuid"));
 
 const app = express();
 
@@ -85,6 +86,25 @@ let topMovies = [
       "Crouching Tiger, Hidden Dragon tells the story of a young Chinese warrior who steals a sword from a famed swordsman and the ensuing chase that follows taking her to a world of adventure and unexpected romance.",
   },
 ];
+
+// HTTP requests
+
+// GET
+app.get("/movies", (req, res) => {
+  res.status(200).json(movies);
+});
+
+// GET
+app.get("/movies/:title", (req, res) => {
+  const { title } = req.params;
+  const movies = movies.find((movie) => movie.Title === title);
+
+  if (movie) {
+    res.status(200).json(movie);
+  } else {
+    res.status(400).send("no such movie");
+  }
+});
 
 // GET requests from ex2.4
 app.use(morgan("common"));
