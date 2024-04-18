@@ -211,7 +211,7 @@ let movies = [
 
 // HTTP requests
 
-// CREATE
+// CREATE can't get this request in Postman....
 app.post("/users", (req, res) => {
   const newUser = req.body;
 
@@ -224,7 +224,7 @@ app.post("/users", (req, res) => {
   }
 });
 
-// UPDATE
+// UPDATE also can't get this in Postman...
 app.put("/users/:id", (req, res) => {
   const { id } = req.params;
   const updatedUser = req.body;
