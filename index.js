@@ -1,10 +1,9 @@
-const express = require("express"),
-  app = express(),
-  morgan = require("morgan"),
-  bodyParser = require("body-parser"),
-  uuid = require("uuid");
+const express = require("express");
+const bodyParser = require("body-parser");
+const uuid = require("uuid");
+const app = express();
 
-app.use = bodyParser.json();
+app.use(bodyParser.json());
 
 let users = [
   {
@@ -211,11 +210,11 @@ let movies = [
 
 // HTTP requests
 
-// CREATE can't get this request in Postman....
+// CREATE
 app.post("/users", (req, res) => {
   const newUser = req.body;
 
-  if (newUser.name) {
+  if (newUser && newUser.name) {
     newUser.id = uuid.v4();
     users.push(newUser);
     res.status(201).json(newUser);
@@ -224,7 +223,7 @@ app.post("/users", (req, res) => {
   }
 });
 
-// UPDATE also can't get this in Postman...
+// UPDATE
 app.put("/users/:id", (req, res) => {
   const { id } = req.params;
   const updatedUser = req.body;
