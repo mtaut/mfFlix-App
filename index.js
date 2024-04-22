@@ -196,6 +196,8 @@ let movies = [
     Description:
       "Crouching Tiger, Hidden Dragon tells the story of a young Chinese warrior who steals a sword from a famed swordsman and the ensuing chase that follows taking her to a world of adventure and unexpected romance.",
     Genre: "Drama",
+    Description:
+      "In film and television, drama is a category or genre of narrative fiction intended to be more serious than humorous in tone.",
 
     Director: {
       Name: "Ang Lee",
