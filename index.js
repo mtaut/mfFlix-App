@@ -69,7 +69,7 @@ let movies = [
     },
     Director: {
       Name: "Lana Wachowski, Lilly Wachowski",
-      Bio: "Lana Wachowski (born Larry Wachowski) and Lilly Wachowski (born Andy Wachowski) are sisters, and were born in Chicago, Illinois. They have produced numerous notable films together. Lana Wachowski attended Bard college in New York state. Lilly attended Emerson College in Boston. They both currently live in Chicago.",
+      Bio: "Lana Wachowski and Lilly Wachowski are sisters, and were born in Chicago, Illinois. They have produced numerous notable films together. Lana Wachowski attended Bard college in New York state. Lilly attended Emerson College in Boston. They both currently live in Chicago.",
       Birth: "Lana: 1965 Lilly: 1967",
     },
     ImageURL:
