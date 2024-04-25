@@ -1,4 +1,5 @@
 const bodyParser = require("body-parser");
+const nodemon = require("nodemon");
 const uuid = require("uuid");
 const app = express();
 const mongoose = require("mongoose");
@@ -417,6 +418,6 @@ app.get("/", (req, res) => {
 });
 
 // listen for requests
-app.listen(126, () => {
-  console.log("Your app is listening on port 126.");
+app.listen(5501, () => {
+  console.log("Your app is listening on port 5501.");
 });
