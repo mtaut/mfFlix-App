@@ -4,6 +4,7 @@ const app = express();
 const mongoose = require("mongoose");
 const Models = require("./models.js");
 const express = require("express");
+
 const Movies = Models.Movie;
 const Users = Models.User;
 
@@ -416,6 +417,6 @@ app.get("/", (req, res) => {
 });
 
 // listen for requests
-app.listen(5501, () => {
-  console.log("Your app is listening on port 5501.");
+app.listen(126, () => {
+  console.log("Your app is listening on port 126.");
 });
