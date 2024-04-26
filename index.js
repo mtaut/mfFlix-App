@@ -1,10 +1,10 @@
+const express = require("express");
 const bodyParser = require("body-parser");
 const nodemon = require("nodemon");
 const uuid = require("uuid");
 const app = express();
 const mongoose = require("mongoose");
 const Models = require("./models.js");
-const express = require("express");
 
 const Movies = Models.Movie;
 const Users = Models.User;
