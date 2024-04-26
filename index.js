@@ -1,24 +1,28 @@
 const express = require("express");
-const bodyParser = require("body-parser");
+bodyParser = require("body-parser");
+uuid = require("uuid");
+
+const morgan = require("morgan");
 const nodemon = require("nodemon");
-const uuid = require("uuid");
 const app = express();
 const mongoose = require("mongoose");
 const Models = require("./models.js");
 
 const Movies = Models.Movie;
 const Users = Models.User;
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+const Genres = Models.Genre;
+const Directors = Models.Director;
 
 mongoose.connect("mongodb://localhost:27017/cfDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
 
-let users = [
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+/*let users = [
   {
     id: 1,
     username: "Sally",
@@ -29,9 +33,9 @@ let users = [
     username: "Bob",
     favoriteMovies: ["The Matrix"],
   },
-];
+];*/
 
-let movies = [
+/*let movies = [
   {
     Title: "The Lives of Others",
     Year: "2006",
@@ -221,7 +225,7 @@ let movies = [
       "https://en.wikipedia.org/wiki/Crouching_Tiger,_Hidden_Dragon#/media/File:Crouching_Tiger,_Hidden_Dragon_(Chinese_poster).png",
     Featured: false,
   },
-];
+];*/
 
 // HTTP requests
 
@@ -370,9 +374,16 @@ app.delete("/users/:Username", async (req, res) => {
     });
 });
 
-// READ
+// READ will return a JSON object when at /movies
 app.get("/movies", (req, res) => {
-  res.status(200).json(movies);
+  Movies.find()
+    .then((movies) => {
+      res.status(201).json(movies);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
 });
 
 // READ
@@ -413,6 +424,7 @@ app.get("/movies/directors/:directorName", (req, res) => {
   }
 });
 
+// Default text response when at /
 app.get("/", (req, res) => {
   res.send("Welcome to myFlix movie app!");
 });
