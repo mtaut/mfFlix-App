@@ -230,7 +230,6 @@ app.use(bodyParser.json());
 // HTTP requests
 
 // CREATE, allow users to register
-
 app.post("/users", async (req, res) => {
   await Users.findOne({ Username: req.body.Username })
     .then((user) => {
@@ -278,6 +277,7 @@ app.get("/users/:Username", async (req, res) => {
     })
     .catch((err) => {
       console.error(err);
+      res.status(500).send("Error: " + err);
     });
 });
 
@@ -293,16 +293,15 @@ app.put("/users/:Username", async (req, res) => {
         Birthday: req.body.Birthday,
       },
     },
-    { new: true }, //makes sure that the update document is returned
-    (err, updatedUser) => {
-      if (err) {
-        console.error(err);
-        res.status(500).send("Error: " + err);
-      } else {
-        res.json(updatedUser);
-      }
-    }
-  );
+    { new: true }
+  ) //makes sure that the update document is returned
+    .then((updatedUser) => {
+      res.json(updatedUser);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
 });
 
 // CREATE Add a movie to a user's list of favorites
@@ -323,30 +322,30 @@ app.post("/users/:Username/movies/:MovieID", async (req, res) => {
     });
 });
 
-// DELETE
-app.delete("/users/:id/:movieTitle", (req, res) => {
-  const { id, movieTitle } = req.params;
-
-  let user = users.find((user) => user.id == id);
-
-  if (user) {
-    user.favoriteMovies = user.favoriteMovies.filter(
-      (title) => title !== movieTitle
-    );
-    res
-      .status(200)
-      .send(`${movieTitle} has been removed from user ${id}'s array`);
-  } else {
-    res.status(400).send("no such user");
-  }
+// DELETE remove a movie from user's list of favorites
+app.delete("/users/:Username/movies/:MovieID", async (req, res) => {
+  await Users.findOneAndUpdate(
+    { Username: req.params.Username },
+    {
+      $pull: { FavoriteMovies: req.params.MovieID },
+    },
+    { new: true }
+  ) // this line makes sure that the updated document is returned
+    .then((updatedUser) => {
+      res.json(updatedUser);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
 });
 
 // DELETE allow user to deregister
 app.delete("/users/:Username", async (req, res) => {
-  Users.findOneAndRemove({ Username: req.params.Username })
+  await Users.findOneAndDelete({ Username: req.params.Username })
     .then((user) => {
       if (!user) {
-        res.status(400).send(req.params.Username + " was not found");
+        res.status(404).send(req.params.Username + " was not found");
       } else {
         res.status(200).send(req.params.Username + " was deleted.");
       }
@@ -369,7 +368,7 @@ app.get("/movies", (req, res) => {
     });
 });
 
-// READ
+// READ get movie by title
 app.get("/movies/:Title", (req, res) => {
   Movies.findOne({ Title: req.params.Title })
     .then((movie) => {
@@ -381,11 +380,15 @@ app.get("/movies/:Title", (req, res) => {
     });
 });
 
-// READ
-app.get("/movies/genre/:genreName", async (req, res) => {
-  await Movies.findOne({ Genre: req.params.genreName })
-    .then((movies) => {
-      res.status(200).json(movies);
+// READ get data about a genre by name
+app.get("/genre/:genreName", async (req, res) => {
+  await Movies.findOne({ "Genre.Name": req.params.genreName })
+    .then((genre) => {
+      if (!genre) {
+        res.status(404).send("Genre not found.");
+      } else {
+        res.status(200).json(genre);
+      }
     })
     .catch((err) => {
       console.error(err);
@@ -394,10 +397,14 @@ app.get("/movies/genre/:genreName", async (req, res) => {
 });
 
 // READ get info on director
-app.get("/directors/:directorName", (req, res) => {
-  Directors.findOne({ Name: req.params.directorName })
-    .then((directors) => {
-      res.json(directors);
+app.get("/directors/:directorName", async (req, res) => {
+  Movies.find({ "Director.Name": req.params.directorName })
+    .then((director) => {
+      if (!director) {
+        res.status(404).send("Director not found.");
+      } else {
+        res.status(200).json(director);
+      }
     })
     .catch((err) => {
       console.error(err);
