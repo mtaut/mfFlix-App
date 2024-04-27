@@ -341,7 +341,7 @@ app.delete("/users/:id/:movieTitle", (req, res) => {
   }
 });
 
-// DELETE allow user to remove account
+// DELETE allow user to deregister
 app.delete("/users/:Username", async (req, res) => {
   Users.findOneAndRemove({ Username: req.params.Username })
     .then((user) => {
@@ -375,36 +375,34 @@ app.get("/movies/:Title", (req, res) => {
     .then((movie) => {
       res.json(movie);
     })
-    .catch((er) => {
+    .catch((err) => {
       console.error(err);
       res.status(500).send("Error: " + err);
     });
 });
 
 // READ
-app.get("/movies/genre/:genreName", (req, res) => {
-  const { genreName } = req.params;
-  const genre = movies.find((movie) => movie.Genre.Name === genreName).Genre;
-
-  if (genre) {
-    res.status(200).json(genre);
-  } else {
-    res.status(400).send("no such genre");
-  }
+app.get("/movies/genre/:genreName", async (req, res) => {
+  await Movies.findOne({ Genre: req.params.genreName })
+    .then((movies) => {
+      res.status(200).json(movies);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
 });
 
-// READ
-app.get("/movies/directors/:directorName", (req, res) => {
-  const { directorName } = req.params;
-  const director = movies.find(
-    (movie) => movie.Director.Name === directorName
-  ).Director;
-
-  if (director) {
-    res.status(200).json(director);
-  } else {
-    res.status(400).send("no such director");
-  }
+// READ get info on director
+app.get("/directors/:directorName", (req, res) => {
+  Directors.findOne({ Name: req.params.directorName })
+    .then((directors) => {
+      res.json(directors);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
 });
 
 // Default text response when at /
