@@ -22,6 +22,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+let auth = require("./auth")(app);
+
 /*let users = [
   {
     id: 1,
