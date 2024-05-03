@@ -399,17 +399,12 @@ app.get("/movies/:Title", (req, res) => {
 });
 
 // READ get data about a genre by name
-app.get("/genre/:genreName", async (req, res) => {
-  await Movies.findOne({ "Genre.Name": req.params.genreName })
-    .then((genre) => {
-      if (!genre) {
-        res.status(404).send("Genre not found.");
-      } else {
-        res.status(200).json(genre);
-      }
+app.get("/movies/genres/:Genre", async (req, res) => {
+  await Movies.findOne({ "Genre.Name": req.params.Genre })
+    .then((movie) => {
+      res.status(200).json(movie.Genre.Description);
     })
     .catch((err) => {
-      console.error(err);
       res.status(500).send("Error: " + err);
     });
 });
