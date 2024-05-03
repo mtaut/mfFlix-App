@@ -415,17 +415,12 @@ app.get("/genre/:genreName", async (req, res) => {
 });
 
 // READ get info on director
-app.get("/directors/:directorName", async (req, res) => {
-  Movies.find({ "Director.Name": req.params.directorName })
-    .then((director) => {
-      if (!director) {
-        res.status(404).send("Director not found.");
-      } else {
-        res.status(200).json(director);
-      }
+app.get("/movies/directors/:Director", async (req, res) => {
+  Movies.findOne({ "Director.Name": req.params.Director })
+    .then((movie) => {
+      res.status(200).json(movie.Director);
     })
     .catch((err) => {
-      console.error(err);
       res.status(500).send("Error: " + err);
     });
 });
