@@ -7,6 +7,7 @@ const nodemon = require("nodemon");
 const app = express();
 const mongoose = require("mongoose");
 const Models = require("./models.js");
+const { check, validationResult } = require("express-validator");
 
 const Movies = Models.Movie;
 const Users = Models.User;
@@ -254,35 +255,40 @@ require("./passport");
 
 // HTTP requests
 
-// CREATE, allow users to register  *** EXCLUDE THIS ENDPOINT FOR PASSPORT STRATEGIES ***
-app.post("/users", async (req, res) => {
-  let hashedPassword = Users.hashPassword(req.body.Password);
-  await Users.findOne({ Username: req.body.Username }) // Search to see if a user with the requested username already exists
-    .then((user) => {
-      if (user) {
-        // If the user is found, send a response that it already exists
-        return res.status(400).send(req.body.Username + "already exists");
-      } else {
-        Users.create({
-          Username: req.body.Username,
-          Password: hashedPassword,
-          Email: req.body.Email,
-          Birthday: req.body.Birthday,
-        })
-          .then((user) => {
-            res.status(201).json(user);
+// CREATE, allow new users to register
+app.post(
+  "/users",
+  // Validation logic here for request *****
+  async (req, res) => {
+    // Check the validation object for errors  *****
+    let hashedPassword = Users.hashPassword(req.body.Password);
+    await Users.findOne({ Username: req.body.Username }) // Search to see if a user with the requested username already exists
+      .then((user) => {
+        if (user) {
+          // If the user is found, send a response that it already exists
+          return res.status(400).send(req.body.Username + "already exists");
+        } else {
+          Users.create({
+            Username: req.body.Username,
+            Password: hashedPassword,
+            Email: req.body.Email,
+            Birthday: req.body.Birthday,
           })
-          .catch((error) => {
-            console.error(error);
-            res.status(500).send("Error: " + error);
-          });
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-      res.status(500).send("Error: " + error);
-    });
-});
+            .then((user) => {
+              res.status(201).json(user);
+            })
+            .catch((error) => {
+              console.error(error);
+              res.status(500).send("Error: " + error);
+            });
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        res.status(500).send("Error: " + error);
+      });
+  }
+);
 
 // Get all users
 app.get(
@@ -316,7 +322,7 @@ app.get(
   }
 );
 
-// UPDATE allow users to update their info
+// UPDATE allow users to update their info     Will also require validation code
 app.put(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
