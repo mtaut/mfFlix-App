@@ -507,6 +507,6 @@ app.get("/", (req, res) => {
 
 // listen for requests
 const port = process.env.PORT || 5501;
-app.listen(port, "0.0.0.0", () => {
+app.listen(port, () => {
   console.log("Listening on Port " + port);
 });
