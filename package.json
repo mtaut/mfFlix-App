@@ -2,10 +2,10 @@
   "name": "movie_api",
   "version": "1.0.0",
   "engines": {
-    "node": "20.12.0",
-    "npm": "10.7.0"
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
   },
-  "description": "",
+  "description": "An app for users to list their favorite movie.",
   "main": "index.js",
   "dependencies": {
     "bcrypt": "^5.1.1",
@@ -26,9 +26,14 @@
     "start": "node index.js",
     "dev": "nodemon index.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mtaut/myflixlist.git"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "homepage": "https://github.com/mtaut/myflixlist#readme",
   "devDependencies": {
     "nodemon": "^3.1.0"
   }
