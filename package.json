@@ -1,29 +1,43 @@
 {
-  "dependencies": {
-    "body-parser": "^1.20.2",
-    "express": "^4.19.2",
-    "lodash": "^4.17.21",
-    "mongoose": "^8.3.2",
-    "morgan": "^1.10.0",
-    "nodemon": "^3.1.0",
-    "uuid": "^9.0.1"
-  },
-  "devDependencies": {
-    "body-parser": "^1.20.2",
-    "eslint": "^8.57.0",
-    "nodemon": "^3.1.0",
-    "uuid": "^9.0.1",
-    "mongoose": "^8.3.2"
-  },
   "name": "movie_api",
   "version": "1.0.0",
+  "engines": {
+    "node": "20.12.0",
+    "npm": "10.7.0"
+  },
+  "description": "",
   "main": "index.js",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "express-validator": "^7.0.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.3.2",
+    "morgan": "^1.10.0",
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.1",
+    "passport-local": "^1.0.0",
+    "uuid": "^9.0.1"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mtaut/myflixlist.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "bugs": {
+    "url": "https://github.com/mtaut/myflixlist/issues"
+  },
+  "homepage": "https://github.com/mtaut/myflixlist#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
 }
