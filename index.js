@@ -1,12 +1,11 @@
 const express = require("express");
 const morgan = require("morgan");
 const app = express();
-uuid = require("uuid");
+const uuid = require("uuid");
 const bodyParser = require("body-parser");
 
 const mongoose = require("mongoose");
 const Models = require("./models.js");
-const nodemon = require("nodemon");
 
 const { check, validationResult } = require("express-validator");
 const Movies = Models.Movie;
