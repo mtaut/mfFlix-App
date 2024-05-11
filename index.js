@@ -23,11 +23,7 @@ mongoose.connect(process.env.CONNECTION_URI, {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
-const cors = require("cors");
-let allowedOrigins = ["http://localhost:5501", "http://testsite.com"];
-
+app.use(morgan("dev"));
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -44,6 +40,9 @@ app.use(
     },
   })
 );
+
+const cors = require("cors");
+let allowedOrigins = ["http://localhost:5501", "http://testsite.com"];
 
 let auth = require("./auth")(app);
 
