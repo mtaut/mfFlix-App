@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "engines": {
     "node": "20.12.0",
-    "npm": "10.7.0"
+    "npm": "10.x"
   },
   "description": "An app for users to list their favorite movies.",
   "main": "index.js",
