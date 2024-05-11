@@ -2,7 +2,7 @@
   "name": "movie_api",
   "version": "1.0.0",
   "engines": {
-    "node": "20.12.0",
+    "node": "20.x",
     "npm": "10.x"
   },
   "description": "An app for users to list their favorite movies.",
