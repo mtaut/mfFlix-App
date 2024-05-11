@@ -130,7 +130,7 @@ app.get(
   }
 );
 
-// UPDATE allow users to update their info     Will also require validation code
+// UPDATE allow users to update their info
 app.put(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
