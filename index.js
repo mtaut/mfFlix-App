@@ -3,27 +3,17 @@ const morgan = require("morgan");
 const app = express();
 const uuid = require("uuid");
 const bcrypt = require("bcrypt");
-
+const cors = require("cors");
 const mongoose = require("mongoose");
 const Models = require("./models.js");
-
+const passport = require("passport");
+require("./passport");
 const { check, validationResult } = require("express-validator");
+let auth = require("./auth")(app);
+
 const Movies = Models.Movie;
 const Users = Models.User;
 
-/*mongoose.connect("mongodb://localhost:27017/cfDB", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}); */
-
-mongoose.connect(process.env.CONNECTION_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(morgan("dev"));
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -40,14 +30,21 @@ app.use(
     },
   })
 );
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(morgan("dev"));
 
-const cors = require("cors");
 let allowedOrigins = ["http://localhost:5501", "http://testsite.com"];
 
-let auth = require("./auth")(app);
+/*mongoose.connect("mongodb://localhost:27017/cfDB", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+}); */
 
-const passport = require("passport");
-require("./passport");
+mongoose.connect(process.env.CONNECTION_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 // HTTP requests
 
