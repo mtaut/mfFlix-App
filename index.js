@@ -2,7 +2,6 @@ const express = require("express");
 const morgan = require("morgan");
 const app = express();
 const uuid = require("uuid");
-const bodyParser = require("body-parser");
 const bcrypt = require("bcrypt");
 
 const mongoose = require("mongoose");
