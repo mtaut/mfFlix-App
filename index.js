@@ -46,7 +46,7 @@ mongoose.connect(process.env.CONNECTION_URI, {
   useUnifiedTopology: true,
 });
 
-// HTTP requests
+// HTTP request endpoints
 
 // CREATE, allow new users to register
 app.post(
@@ -62,9 +62,8 @@ app.post(
     check("Email", "Email does not appear valid").isEmail(),
   ],
   async (req, res) => {
-    // Check the validation object for errors  *****
+    // Check the validation object for errors
     let errors = validationResult(req);
-
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     }
