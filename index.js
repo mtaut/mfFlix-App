@@ -14,6 +14,12 @@ let auth = require("./auth")(app);
 const Movies = Models.Movie;
 const Users = Models.User;
 
+const allowedOrigins = [
+  "http://localhost:5501",
+  "http://testsite.com",
+  "http://localhost:1234",
+];
+
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -30,11 +36,10 @@ app.use(
     },
   })
 );
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
-
-let allowedOrigins = ["http://localhost:5501", "http://testsite.com"];
 
 /*mongoose.connect("mongodb://localhost:27017/cfDB", {
   useNewUrlParser: true,
