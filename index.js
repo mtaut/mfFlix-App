@@ -75,7 +75,7 @@ app.post(
   "/users",
   // Validation logic here for request *****
   [
-    check("Username", "Username is required").isLength({ min: 5 }),
+    check("Username", "Username is required").isLength({ min: 3 }),
     check(
       "Username",
       "Username contains non alphanumeric characters - not allowed."
