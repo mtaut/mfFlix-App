@@ -1,6 +1,5 @@
 const express = require("express");
 const morgan = require("morgan");
-const app = express();
 const uuid = require("uuid");
 const bcrypt = require("bcrypt");
 const cors = require("cors");
@@ -9,7 +8,9 @@ const Models = require("./models.js");
 const passport = require("passport");
 require("./passport");
 const { check, validationResult } = require("express-validator");
-let auth = require("./auth")(app);
+
+const app = express();
+const auth = require("./auth")(app);
 
 const Movies = Models.Movie;
 const Users = Models.User;
@@ -20,6 +21,7 @@ const allowedOrigins = [
   "http://localhost:1234",
 ];
 
+// CORS configuration
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -27,6 +29,22 @@ app.use(
       if (allowedOrigins.indexOf(origin) === -1) {
         // If a specific origin isn't found on the list of allowed origins
 
+        let message =
+          "The CORS policy for this application doesn't allow access from origin " +
+          origin;
+        return callback(new Error(message), false);
+      }
+      return callback(null, true);
+    },
+  })
+);
+
+app.options(
+  "*",
+  cors({
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) === -1) {
         let message =
           "The CORS policy for this application doesn't allow access from origin " +
           origin;
@@ -52,7 +70,6 @@ mongoose.connect(process.env.CONNECTION_URI, {
 });
 
 // HTTP request endpoints
-
 // CREATE, allow new users to register
 app.post(
   "/users",
