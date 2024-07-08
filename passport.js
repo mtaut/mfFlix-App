@@ -14,25 +14,25 @@ passport.use(
       passwordField: "Password",
     },
     async (username, password, callback) => {
-      console.log("${username} ${password}");
+      console.log("Attempting login with username: ${username}");
       await Users.findOne({ Username: username })
         .then((user) => {
           if (!user) {
-            console.log("incorrect username");
+            console.log("Incorrect username");
             return callback(null, false, {
               message: "Incorrect username or password.",
             });
           }
           if (!user.validatePassword(password)) {
-            console.log("incorrect password");
+            console.log("Incorrect password");
             return callback(null, false, { message: "Incorrect password." });
           }
-          console.log("finished");
+          console.log("Login successful");
           return callback(null, user);
         })
         .catch((error) => {
           if (error) {
-            console.log(error);
+            console.log("Error during authentication");
             return callback(error);
           }
         });
@@ -47,11 +47,16 @@ passport.use(
       secretOrKey: "your_jwt_secret",
     },
     async (jwtPayload, callback) => {
+      console.log("Extracting user from JWT");
       return await Users.findById(jwtPayload._id)
         .then((user) => {
+          if (!user) {
+            return callback(null, false, { message: "User not found" });
+          }
           return callback(null, user);
         })
         .catch((error) => {
+          console.log("Error extracting user from JWT", error);
           return callback(error);
         });
     }
