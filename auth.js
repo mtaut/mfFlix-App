@@ -15,9 +15,10 @@ let generateJWTToken = (user) => {
 
 /* POST login */
 module.exports = (router) => {
-  router.post("/login", (req, res) => {
+  router.post("/login", (req, res, next) => {
     passport.authenticate("local", { session: false }, (error, user, info) => {
       if (error || !user) {
+        res.setHeader("Access-Control-Allow-Origin", "*"); // Will ensure CORS headers are set
         return res.status(400).json({
           message: "Something is not right",
           user: user,
@@ -25,11 +26,12 @@ module.exports = (router) => {
       }
       req.login(user, { session: false }, (error) => {
         if (error) {
+          res.setHeader("Access-Control-Allow-Origin", "*");
           res.send(error);
         }
         let token = generateJWTToken(user.toJSON());
         return res.json({ user, token });
       });
-    })(req, res);
+    })(req, res, next);
   });
 };
