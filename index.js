@@ -16,7 +16,7 @@ const Users = Models.User;
 let auth = require("./auth")(app);
 
 // CORS configuration
-const cors = requre("cors");
+const cors = require("cors");
 app.use(cors());
 
 //app.options("*", cors(corsOptions));
