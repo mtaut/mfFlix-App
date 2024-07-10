@@ -2,7 +2,6 @@ const express = require("express");
 const morgan = require("morgan");
 const uuid = require("uuid");
 const bcrypt = require("bcrypt");
-const cors = require("cors");
 const mongoose = require("mongoose");
 const Models = require("./models.js");
 const passport = require("passport");
@@ -17,22 +16,23 @@ const Users = Models.User;
 let auth = require("./auth")(app);
 
 // CORS configuration
-const corsOptions = {
+const cors = requre("cors");
+app.use(cors());
+
+//app.options("*", cors(corsOptions));
+
+/*const corsOptions = {
   origin: "*",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
-};
+};*/
 
-app.use(cors(corsOptions));
-
-app.options("*", cors(corsOptions));
-
-const allowedOrigins = [
+/*const allowedOrigins = [
   "http://localhost:5501",
   "http://testsite.com",
   "http://localhost:1234",
-];
+];*/
 
 app.use((req, res, next) => {
   console.log("Request Origin:", req.headers.origin);
