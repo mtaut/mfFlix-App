@@ -13,31 +13,32 @@ const app = express();
 const Movies = Models.Movie;
 const Users = Models.User;
 
-let auth = require("./auth")(app);
+const cors = require("cors");
 
 // CORS configuration
-const cors = require("cors");
-app.use(cors());
-
-//app.options("*", cors(corsOptions));
-
-/*const corsOptions = {
-  origin: "*",
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true,
-};*/
-
-/*const allowedOrigins = [
+const allowedOrigins = [
   "http://localhost:5501",
   "http://testsite.com",
   "http://localhost:1234",
-];*/
+];
 
-app.use((req, res, next) => {
-  console.log("Request Origin:", req.headers.origin);
-  next();
-});
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      let message =
+        "The CORS policy for this application doesn't allow access from origin " +
+        origin;
+      return callback(new Error(message), false);
+    }
+    return callback(null, true);
+  },
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -48,24 +49,12 @@ mongoose.connect(process.env.CONNECTION_URI, {
   useUnifiedTopology: true,
 });
 
-/*app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.indexOf(origin) === -1) {
-        // If a specific origin isn't found on the list of allowed origins
+let auth = require("./auth")(app);
 
-        let message =
-          "The CORS policy for this application doesn't allow access from origin " +
-          origin;
-        return callback(new Error(message), false);
-      }
-      return callback(null, true);
-    },
-  })
-);*/
-
-/*app.options("*", cors());*/
+app.use((req, res, next) => {
+  console.log("Request Origin:", req.headers.origin);
+  next();
+});
 
 /*mongoose.connect("mongodb://localhost:27017/cfDB", {
   useNewUrlParser: true,
@@ -315,6 +304,13 @@ app.get(
 // Default text response when at /
 app.get("/", (req, res) => {
   res.send("Welcome to myFlix movie app!");
+});
+
+app.use((err, req, res, next) => {
+  if (err instanceof Error && err.message.startsWith("The CORS policy")) {
+    return res.status(403).json({ message: err.message });
+  }
+  next(err);
 });
 
 // listen for requests
