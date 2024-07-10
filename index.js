@@ -28,6 +28,12 @@ app.use(cors(corsOptions));
 
 app.options("*", cors(corsOptions));
 
+const allowedOrigins = [
+  "http://localhost:5501",
+  "http://testsite.com",
+  "http://localhost:1234",
+];
+
 app.use((req, res, next) => {
   console.log("Request Origin:", req.headers.origin);
   next();
@@ -41,12 +47,6 @@ mongoose.connect(process.env.CONNECTION_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
-
-/*const allowedOrigins = [
-  "http://localhost:5501",
-  "http://testsite.com",
-  "http://localhost:1234",
-];*/
 
 /*app.use(
   cors({
