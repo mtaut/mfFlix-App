@@ -16,7 +16,7 @@ let generateJWTToken = (user) => {
 /* POST login */
 module.exports = (router) => {
   router.post("/login", (req, res, next) => {
-    console.log("inside login" + req);
+    console.log("inside login" + JSON.stringify(req));
     passport.authenticate("local", { session: false }, (error, user, info) => {
       if (error || !user) {
         res.setHeader("Access-Control-Allow-Origin", "*"); // Will ensure CORS headers are set
