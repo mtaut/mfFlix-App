@@ -20,6 +20,7 @@ const allowedOrigins = [
   "http://localhost:5501",
   "http://testsite.com",
   "http://localhost:1234",
+  "https://myflixlist.netlify.app",
 ];
 
 const corsOptions = {
