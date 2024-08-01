@@ -21,7 +21,6 @@ const allowedOrigins = [
   "http://testsite.com",
   "http://localhost:1234",
   "https://myflixlist.netlify.app",
-  "https://en.wikipedia.org/wiki/The_Lives_of_Others#/media/File:Leben_der_anderen.jpg",
 ];
 
 const corsOptions = {
