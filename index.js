@@ -21,6 +21,7 @@ const allowedOrigins = [
   "http://testsite.com",
   "http://localhost:1234",
   "https://myflixlist.netlify.app",
+  "https://upload.wikimedia.org/wikipedia/en/8/86/The_Silence_of_the_Lambs_poster.jpg",
 ];
 
 const corsOptions = {
