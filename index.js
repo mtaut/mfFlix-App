@@ -22,6 +22,7 @@ const allowedOrigins = [
   "http://localhost:1234",
   "https://myflixlist.netlify.app",
   "http://localhost:4200",
+  "https://mtaut.github.io",
 ];
 
 const corsOptions = {
