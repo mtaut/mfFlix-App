@@ -1,3 +1,4 @@
+// Import the required dependencies
 const express = require("express");
 const morgan = require("morgan");
 const uuid = require("uuid");
@@ -15,8 +16,8 @@ const Users = Models.User;
 
 const cors = require("cors");
 
-// CORS configuration
 const allowedOrigins = [
+  // CORS configuration - update as needed
   "http://localhost:5501",
   "http://testsite.com",
   "http://localhost:1234",
@@ -59,12 +60,8 @@ app.use((req, res, next) => {
   next();
 });
 
-/*mongoose.connect("mongodb://localhost:27017/cfDB", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}); */
+//--------------------> HTTP request endpoints begin here <---------------------------
 
-// HTTP request endpoints
 // CREATE, allow new users to register
 app.post(
   "/users",
@@ -86,7 +83,9 @@ app.post(
     }
 
     let hashedPassword = Users.hashPassword(req.body.Password);
-    await Users.findOne({ Username: req.body.Username }) // Search to see if a user with the requested username already exists
+
+    // Search to see if a user with the requested username already exists
+    await Users.findOne({ Username: req.body.Username })
       .then((user) => {
         if (user) {
           // If the user is found, send a response that it already exists
