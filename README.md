@@ -4,6 +4,9 @@ myFlixList is the server-side component of the movie app, myFlixList-client Reac
 
 ## Technologies Used
 
-- Node.js and Express
-- Database was built using PostgreSQL database
-- Business logic layer was built using Mongoose
+- API is a Node.js and Express application
+- API uses REST architecture
+- Database was built using MongoDB
+- Business logic layer was modeled with Mongoose
+- API endpoint testing was done with Postman
+- API has been deployed to Heroku
